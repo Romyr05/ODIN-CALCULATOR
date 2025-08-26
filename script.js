@@ -1,8 +1,6 @@
 //Elements
-
-
-
 const prompt = require('prompt-sync')({sigint: true});
+
 //Functions
 function add(num1, num2){
     return num1 + num2
@@ -24,9 +22,9 @@ let testing = prompt("enter a number")
 
 let num1,ope,num2;
 
-num1 = parseFloat(testing[0])
-ope = testing[1]
-num2 = parseFloat(testing[2])
+num1 = parseFloat(testing[0]).trim()
+ope = testing[1].trim()
+num2 = parseFloat(testing[2]).trim()
 
 console.log(num1,ope,num2)
 
@@ -45,7 +43,7 @@ function operate(num1, num2, ope){
         break;
     case "/":
         answer = divide(num1, num2)
-        break;
+        break
     }
     return answer
 }
