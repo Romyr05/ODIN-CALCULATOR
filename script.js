@@ -22,11 +22,9 @@ let testing = prompt("enter a number")
 
 let num1,ope,num2;
 
-num1 = parseFloat(testing[0]).trim()
+num1 = parseFloat(testing[0])
 ope = testing[1].trim()
-num2 = parseFloat(testing[2]).trim()
-
-console.log(num1,ope,num2)
+num2 = parseFloat(testing[2])
 
 
 function operate(num1, num2, ope){
