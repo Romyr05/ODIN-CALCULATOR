@@ -1,11 +1,16 @@
 //Elements
-let num1,ope,num2;
+let first_number = ""
+let second_number = ""
+let Currentoperator = null
+let reset = false
+
 
 const equation = document.getElementById("equation")
-const result = document.getElementById("result")
+const current = document.getElementById("current")
 const calc_num = document.querySelectorAll("#calc_num")
 const calc_ope = document.querySelectorAll("#calc_ope")
-
+const equal = document.querySelector("#equal")
+const delAll = document.querySelector("#delAll")
 
 
 calc_num.forEach( (button) => {
@@ -13,18 +18,45 @@ calc_num.forEach( (button) => {
 });
 
 calc_ope.forEach((button) => {
-    button.addEventListener(("click"),() => {(button.textContent)})
+    button.addEventListener(("click"),() => {operator(button.textContent)})
 })
 
+equal.addEventListener(("click"),() => evaluate())
 
+delAll.addEventListener(("click"),() => clearAll())
 
 //Functions
 function append(number){
-    if(first_number.textContent !== 0){
-        first_number.textContent += number
-        console.log()
+    if(current.textContent === '0' || reset){
+        current.textContent = ""                      
     }
+    current.textContent += number
 }
+
+function operator(operator){
+
+    first_number = current.textContent
+    Currentoperator = operator 
+    equation.textContent= (`${first_number} ${Currentoperator}`)
+    reset = true
+}
+
+function evaluate(){
+    second_number = current.textContent
+    equation.textContent = (`${first_number}${Currentoperator}${second_number}`)
+    answer = operate(
+        parseFloat(first_number),
+        parseFloat(second_number),
+        Currentoperator)
+    current.textContent = answer
+}
+
+function clearAll(){
+    equation.textContent = ""
+    current.textContent = "0"
+}
+
+
 
 
 function add(num1, num2){
