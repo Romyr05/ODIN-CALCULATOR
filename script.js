@@ -11,6 +11,7 @@ const calc_num = document.querySelectorAll("#calc_num")
 const calc_ope = document.querySelectorAll("#calc_ope")
 const equal = document.querySelector("#equal")
 const delAll = document.querySelector("#delAll")
+const dot = document.querySelector("#dot")
 
 
 calc_num.forEach( (button) => {
@@ -25,10 +26,13 @@ equal.addEventListener(("click"),() => evaluate())
 
 delAll.addEventListener(("click"),() => clearAll())
 
+dot.addEventListener(("click"), () => create_dot())
+
 //Functions
 function append(number){
     if(current.textContent === '0' || reset){
-        current.textContent = ""                      
+        current.textContent = ""
+        reset = false                      
     }
     current.textContent += number
 }
@@ -42,6 +46,8 @@ function operator(operator){
 }
 
 function evaluate(){
+    if(current.textContent === "0") return
+    if(reset) return
     second_number = current.textContent
     equation.textContent = (`${first_number}${Currentoperator}${second_number}`)
     answer = operate(
@@ -51,9 +57,23 @@ function evaluate(){
     current.textContent = answer
 }
 
+function create_dot(){
+    if(current.textContent === ""){
+        return
+    }else if(current.textContent.includes(".")){
+        return
+    }
+
+    current.textContent += "."
+}
+
 function clearAll(){
     equation.textContent = ""
     current.textContent = "0"
+    first_number = ""
+    second_number = ""
+    Currentoperator = null
+    reset = false
 }
 
 
@@ -85,7 +105,7 @@ function operate(num1, num2, ope){
     case "-":
         answer = subtract(num1, num2);
         break;
-    case "*":
+    case "x":
         answer = multiply(num1, num2);
         break;
     case "/":
