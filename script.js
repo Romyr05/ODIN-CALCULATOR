@@ -4,7 +4,7 @@ let second_number = ""
 let Currentoperator = null
 let reset = false
 
-
+//DOM
 const equation = document.getElementById("equation")
 const current = document.getElementById("current")
 const calc_num = document.querySelectorAll("#calc_num")
@@ -16,7 +16,7 @@ const dot = document.querySelector("#dot")
 
 current.textContent = "0"
 
-
+//event listeners
 calc_num.forEach( (button) => {
     button.addEventListener(("click"), () => {append(button.textContent)})
 });
@@ -33,8 +33,12 @@ delAll.addEventListener(("click"),() => clearAll())
 
 dot.addEventListener(("click"), () => create_dot())
 
+window.addEventListener(("keydown"), (e) => {
+    keyboardWrite(e.key)
+})
+
 //Functions
-function append(number){
+function append(number){   //Appending the number in the screen
     if(current.textContent === '0' || reset){
         current.textContent = ""
         reset = false                      
@@ -42,7 +46,7 @@ function append(number){
     current.textContent += number
 }
 
-function operator(operator){
+function operator(operator){  //Checking the operator
     if(Currentoperator !== null){
         evaluate()
     }
@@ -52,7 +56,7 @@ function operator(operator){
     reset = true
 }
 
-function evaluate(){
+function evaluate(){   //Evaluating and operating it 
     if(Currentoperator === null) return
     if(reset) return
     if (Currentoperator === '÷' && current.textContent === '0') {
@@ -69,7 +73,7 @@ function evaluate(){
     reset = true
 }
 
-function create_dot(){
+function create_dot(){  //Making a dot
     if(current.textContent === ""){
         return
     }else if(current.textContent.includes(".")){
@@ -79,7 +83,7 @@ function create_dot(){
     current.textContent += "."
 }
 
-function clearAll(){
+function clearAll(){   //Clearing all the inputs
     equation.textContent = ""
     current.textContent = "0"
     first_number = ""
@@ -88,19 +92,16 @@ function clearAll(){
     reset = false
 }
 
-function clear(){
+function clear(){ //Clear only the rightmost digit
     current.textContent = current.textContent.slice(0,-1)
 }
 
 function round_number(number){
     return Math.round(number * 100) / 100
 }
- 
-window.addEventListener(("keydown"), (e) => {
-    keyboardWrite(e.key)
-})
 
-function keyboardWrite(event){
+
+function keyboardWrite(event){ //keyboard inputs
     if(event >= 0 && event <= 9){
         append(event)
     }else if(event === "."){
@@ -116,7 +117,7 @@ function keyboardWrite(event){
     }
 }
 
-function normalize_function(event){
+function normalize_function(event){ //Translating keyboard into calc symbols
     if(event === '+' ){
         return '+'
     }
@@ -134,7 +135,7 @@ function normalize_function(event){
     }
 }
 
-
+//Calculator Functions
 function add(num1, num2){
     return num1 + num2
 }
