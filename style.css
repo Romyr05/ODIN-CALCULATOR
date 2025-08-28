@@ -3,49 +3,49 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-body {
+ 
+body {   /* displayed the body as flex to make it center the whole screen*/
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
 }
 
-.CALCULATOR {
+.CALCULATOR {   /*calculator outside design */
     background-color: red;
     padding: 20px;
     border-radius: 25px;
-    width: 300px;
+    width: 320px;
 }
 
-.screen {
+.screen {    /*screen for the outputs*/
     background-color: black;
     color: white;
     padding: 20px;
     margin-bottom: 15px;
     border-radius: 8px;
-    text-align: right;
-    height: 60px;
+    text-align: right;  /*aligned right for accuracy*/
+    height: 80px;
 }
 
-.numbers {
+.numbers {   /*the border containing all the buttons*/
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5,1fr);
-    gap: 10px;
-    height: 350px; /* Give numbers section a specific height */
+    grid-template-columns: repeat(4, 1fr);  /*made 4 columns*/
+    grid-template-rows: repeat(5,1fr);   /*not needed since css automatically specified that it will be 5*/
+    gap: 10px; /*each button gap of 10px*/
+    height: 370px; 
 }
 
-.numbers div {
-    display: contents; /* Makes the row divs "disappear" from grid */
+.numbers div {   
+    display: contents;  /* needed since have html divs alter the grid layout */
 }
 
-button { 
-    padding: 20px;
-    font-size: 1.2rem;
+button {  
+    padding: 18px;
+    font-size: larger;
     background: #eee;
     cursor: pointer;
-    border: none;
+    border: solid 1px;
     border-radius: 8px;
     font-weight: bold;
     transition: all 0.2s;
@@ -56,6 +56,16 @@ button:hover {
     transform: scale(0.95);
 }
 
-#equal{ /* Note: your HTML uses id="0", not id="equal" */
+#equal{ /* equal to two buttons size */
     grid-column: span 2;
+}
+
+#equation{
+    margin-bottom: 10px;
+    font-size: small;
+}
+
+#current{
+    font-size: larger;
+    font-weight: bolder;
 }
