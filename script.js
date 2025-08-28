@@ -10,8 +10,11 @@ const current = document.getElementById("current")
 const calc_num = document.querySelectorAll("#calc_num")
 const calc_ope = document.querySelectorAll("#calc_ope")
 const equal = document.querySelector("#equal")
+const del = document.querySelector("#del")
 const delAll = document.querySelector("#delAll")
 const dot = document.querySelector("#dot")
+
+current.textContent = "0"
 
 
 calc_num.forEach( (button) => {
@@ -23,6 +26,8 @@ calc_ope.forEach((button) => {
 })
 
 equal.addEventListener(("click"),() => evaluate())
+
+del.addEventListener(("click"), () => clear())
 
 delAll.addEventListener(("click"),() => clearAll())
 
@@ -46,7 +51,7 @@ function operator(operator){
 }
 
 function evaluate(){
-    if(current.textContent === "0") return
+    if(current.textContent === "0" || Currentoperator === null) return
     if(reset) return
     second_number = current.textContent
     equation.textContent = (`${first_number}${Currentoperator}${second_number}`)
@@ -76,6 +81,9 @@ function clearAll(){
     reset = false
 }
 
+function clear(){
+    current.textContent = current.textContent.slice(0,-1)
+}
 
 
 
@@ -95,6 +103,10 @@ function divide(num1, num2){
     return num1/num2
 }
 
+function modulo(num1, num2){
+    return num1 % num2
+}
+
 
 function operate(num1, num2, ope){
     let answer;
@@ -108,9 +120,11 @@ function operate(num1, num2, ope){
     case "x":
         answer = multiply(num1, num2);
         break;
-    case "/":
+    case "÷":
         answer = divide(num1, num2)
         break
+    case "%":
+        answer = modulo(num1,num2)
     }
     return answer
 }
