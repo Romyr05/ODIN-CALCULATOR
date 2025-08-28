@@ -43,7 +43,9 @@ function append(number){
 }
 
 function operator(operator){
-
+    if(Currentoperator !== null){
+        evaluate()
+    }
     first_number = current.textContent
     Currentoperator = operator 
     equation.textContent= (`${first_number} ${Currentoperator}`)
@@ -51,15 +53,20 @@ function operator(operator){
 }
 
 function evaluate(){
-    if(current.textContent === "0" || Currentoperator === null) return
+    if(Currentoperator === null) return
     if(reset) return
+    if (Currentoperator === '÷' && current.textContent === '0') {
+        alert("You can't divide by 0!")
+        return
+    }
     second_number = current.textContent
-    equation.textContent = (`${first_number}${Currentoperator}${second_number}`)
+    equation.textContent = (`${first_number} ${Currentoperator} ${second_number}`)
     answer = operate(
         parseFloat(first_number),
         parseFloat(second_number),
         Currentoperator)
-    current.textContent = answer
+    current.textContent = round_number(answer)
+    reset = true
 }
 
 function create_dot(){
@@ -85,6 +92,47 @@ function clear(){
     current.textContent = current.textContent.slice(0,-1)
 }
 
+function round_number(number){
+    return Math.round(number * 100) / 100
+}
+ 
+window.addEventListener(("keydown"), (e) => {
+    keyboardWrite(e.key)
+})
+
+function keyboardWrite(event){
+    if(event >= 0 && event <= 9){
+        append(event)
+    }else if(event === "."){
+        create_dot()
+    }else if(event === "Backspace"){
+        clear()
+    }else if(event === "Enter"){
+        evaluate()
+    }else if (event === '+' || event === '-' || event === '*' || event === '/' || event === '%'){
+        operator(normalize_function(event))
+    }else{
+        return
+    }
+}
+
+function normalize_function(event){
+    if(event === '+' ){
+        return '+'
+    }
+    else if(event === '-'){
+        return '-'
+    }
+    else if(event === '*' ){
+        return 'x'
+    }
+    else if(event === '/'){
+        return '÷'
+    }
+    else if(event === '%'){
+        return '%'
+    }
+}
 
 
 function add(num1, num2){
@@ -100,6 +148,9 @@ function multiply(num1, num2){
 }
 
 function divide(num1, num2){
+    if(num2 === 0){
+        return "Not possible to divide it by 0"  
+    }
     return num1/num2
 }
 
@@ -125,6 +176,8 @@ function operate(num1, num2, ope){
         break
     case "%":
         answer = modulo(num1,num2)
+    default:
+        return null
     }
     return answer
 }
